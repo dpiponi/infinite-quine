@@ -12,15 +12,21 @@ takePrefix (s : ss) (t : tt) | s == t = takePrefix ss tt
 
 character :: Parser Char
 character = do
-  c : cs <- get
-  put cs
-  return c
+  ccs <- get
+  case ccs of
+    [] -> error "End of input"
+    c : cs -> do
+      put cs
+      return c
 
 theChar :: Char -> Parser ()
 theChar a = do
-  c : cs <- get
-  put cs
-  unless (a == c) $ error ("Expecting '" ++ [a] ++ "'")
+  ccs <- get
+  case ccs of
+    [] -> error "End of input"
+    c : cs -> do
+      put cs
+      unless (a == c) $ error ("Expecting '" ++ [a] ++ "'")
 
 theString :: String -> Parser ()
 theString [] = return ()

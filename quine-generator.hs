@@ -16,21 +16,12 @@ describe' (a : as) = do
   b <- describe' as
   return $ c ++ b
 
+vowely = "aefhilmnorsx"
+
 determiner :: Integer -> Char -> String
 determiner n _ | n == 1 = "another"
 determiner n _ | n > 1 = "yet another"
-determiner n 'a' = "an"
-determiner n 'e' = "an"
-determiner n 'f' = "an"
-determiner n 'h' = "an"
-determiner n 'i' = "an"
-determiner n 'l' = "an"
-determiner n 'm' = "an"
-determiner n 'n' = "an"
-determiner n 'o' = "an"
-determiner n 'r' = "an"
-determiner n 's' = "an"
-determiner n 'x' = "an"
+determiner n x | x `elem` vowely = "an"
 determiner n _ = "a"
 
 description :: Integer -> Char -> String
